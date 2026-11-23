@@ -1,0 +1,1 @@
+{"name": "notes", "short_name": "notes", "start_url": ".", "scope": ".", "display": "standalone", "background_color": "#eae2d0", "theme_color": "#f1ebda", "icons": [{"sizes": "192x192", "src": "icon-192.png", "type": "image/png"}, {"sizes": "512x512", "src": "icon-512.png", "type": "image/png"}]}
