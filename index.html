@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="notes">
-<meta name="theme-color" content="#f1ebda">
+<meta name="theme-color" content="#110d09">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -16,12 +16,20 @@
 <script src="https://accounts.google.com/gsi/client" async defer onload="window.__gisLoaded=true"></script>
 <style>
 :root{
-  --bg:#f1ebda; --bg2:#eae2cd; --card:#faf6ea; --card2:#f3eddb;
-  --text:#211d14; --muted:#7a7261; --accent:#57503e; --line:#ddd2b8;
-  --danger:#e5484d; --ok:#46a758;
+  /* wood-walnut-smoke — the diary app's wood theme, ported as-is
+     (palette + the zukan/diary wood-grain photograph, CC0) */
+  --bg:#110d09; --bg2:#1d160f; --card:#241b13; --card2:#33261b;
+  --text:#f3ede7; --muted:#c2a68e; --accent:#e0b65c; --line:#423223; --lineStrong:#ad8766;
+  --danger:#ff6a55; --ok:#46a758;
+  --nav:rgba(29,22,15,.94); --sheet:rgba(0,0,0,.55); --fab:#e0b65c; --fabink:#110d09;
+  --tex-wood-walnut-smoke:url("data:image/webp;base64,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");
+  --desktex:var(--tex-wood-walnut-smoke);
   --uifont:-apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
   --sans:var(--uifont);
 }
+/* wood themes: the grain is the body's own background, tiled at
+   560px (the diary app's treatment — a fixed layer breaks on iOS) */
+body[data-theme^="wood-"]{ background-image:var(--desktex); background-size:560px 560px; background-repeat:repeat; }
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html,body{ margin:0; padding:0; }
 body{
@@ -37,7 +45,7 @@ body{
 #verBadge{ position:fixed; top:calc(env(safe-area-inset-top, 0px) + 2px); left:0; right:0; text-align:center; z-index:39; font-size:11px; letter-spacing:.03em; color:var(--muted); opacity:.85; pointer-events:none; white-space:nowrap; }
 /* ---------- header + sync (bizplan pattern) ---------- */
 header.top{
-  position:sticky; top:0; z-index:40; background:var(--bg);
+  position:sticky; top:0; z-index:40; background:var(--nav);
   padding:calc(env(safe-area-inset-top, 0px) + 16px) 16px 2px;
 }
 .titlerow{ display:flex; align-items:center; justify-content:center; gap:6px; }
@@ -55,23 +63,21 @@ main{ padding:2px 16px 0; max-width:640px; margin:0 auto; }
 /* ---------- filter pills (diary todo .tdfpill pattern) ---------- */
 .tdfolders{ display:flex; gap:8px; overflow-x:auto; padding:14px 2px 8px; scrollbar-width:none; }
 .tdfolders::-webkit-scrollbar{ display:none; }
-.tdfpill{ flex:0 0 auto; padding:8px 15px; border-radius:999px; border:none; background:var(--card); color:var(--muted); font-size:15px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
-.tdfpill.on{ background:var(--text); color:var(--bg); }
+.tdfpill{ flex:0 0 auto; padding:8px 15px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:15px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
+.tdfpill.on{ background:var(--text); color:var(--bg); border-color:var(--text); }
 .tdfpill .tdcnt{ opacity:.65; font-weight:500; margin-left:3px; }
-/* ---------- axis groups + rows (diary todo .tdrow pattern) ---------- */
-.axishead{ display:flex; align-items:baseline; gap:8px; margin:20px 4px 2px; }
-.axishead .an{ font-size:15px; font-weight:700; }
-.axishead .ac{ font-size:12.5px; color:var(--muted); }
+/* ---------- flat rows (diary todo .tdrow pattern) ---------- */
 @keyframes cdIn{ from{opacity:.3; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
-#listwrap.anim .axisgroup{ animation:cdIn .32s cubic-bezier(0.2,0,0,1) both; }
-.tdrow{ display:flex; align-items:center; gap:12px; padding:7px 4px; min-height:52px; background:var(--bg); position:relative; cursor:pointer; }
-.tdrow::after{ content:''; position:absolute; left:45px; right:0; bottom:0; height:1px; background:var(--line); }
-.axisgroup .tdrow:last-child::after{ display:none; }
-.tdcheck{ flex:0 0 auto; width:29px; height:29px; border-radius:50%; border:2px solid var(--muted); color:var(--bg); font-size:15px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0; background:transparent; cursor:pointer; }
+#listwrap.anim{ animation:cdIn .32s cubic-bezier(0.2,0,0,1) both; }
+.tdrow{ display:flex; align-items:center; gap:12px; padding:3px 4px; min-height:32px; background:transparent; position:relative; cursor:pointer; }
+.tdrow::after{ content:''; position:absolute; left:34px; right:0; bottom:0; height:1px; background:var(--muted); }
+#listwrap .tdrow:last-child::after{ display:none; }
+.tdcheck{ flex:0 0 auto; width:18px; height:18px; border-radius:50%; border:2px solid var(--muted); color:var(--bg); font-size:10px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0; background:transparent; cursor:pointer; }
 .tdcheck.done{ background:var(--text); border-color:var(--text); }
 .tdmain{ flex:1; min-width:0; }
-.tdtitle{ font-size:16.5px; line-height:1.45; }
-.tddel{ flex:0 0 auto; width:38px; height:38px; border:none; background:none; color:var(--muted); font-size:19px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.55; }
+.tdtitle{ font-size:8.5px; line-height:1.3; }
+.tddel{ flex:0 0 auto; width:30px; height:30px; border:none; background:none; color:var(--muted); font-size:19px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.55; }
+.tdedit{ flex:0 0 auto; width:30px; height:30px; border:none; background:none; color:var(--muted); font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.55; }
 .tdnone{ color:var(--muted); text-align:center; padding:52px 0; font-size:14px; }
 /* ---------- settings ---------- */
 .settingshead{ font-size:13px; color:var(--muted); letter-spacing:.06em; margin:34px 4px 8px; }
@@ -86,8 +92,15 @@ button.srow{ cursor:pointer; }
 .rbtn{ margin-top:10px; padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:var(--card2); color:var(--text); font-size:14px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
 .syncline{ font-size:12px; color:var(--muted); padding:2px 4px; }
 .syncline.err{ color:var(--danger); }
+#otherview[hidden]{ display:none !important; }
+#importFile{ display:none; }
+/* ---------- side switch (note / Gumroad) ---------- */
+.sideswitch{ display:flex; gap:8px; padding:14px 2px 0; }
+.sidebtn{ flex:1; padding:9px 15px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:15px; font-weight:600; font-family:var(--uifont); cursor:pointer; text-align:center; }
+.sidebtn.on{ background:var(--text); color:var(--bg); border-color:var(--text); }
+.tdlang{ flex:0 0 auto; height:30px; padding:0 10px; border:1px solid var(--line); border-radius:999px; background:none; color:var(--muted); font-size:12.5px; font-weight:600; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 /* ---------- FAB + quick add (diary todo pattern) ---------- */
-.tdfab{ position:fixed; bottom:calc(env(safe-area-inset-bottom, 0px) + 22px); right:18px; z-index:35; width:60px; height:60px; border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.28); background:var(--text); color:var(--bg); font-size:30px; font-weight:300; cursor:pointer; }
+.tdfab{ position:fixed; bottom:calc(env(safe-area-inset-bottom, 0px) + 22px); right:18px; z-index:35; height:54px; padding:0 22px; border:none; border-radius:999px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.28); background:var(--fab); color:var(--fabink); font-size:15.5px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
 #tdquick{ position:fixed; inset:0; z-index:97; visibility:hidden; transition:visibility 0s linear .38s; }
 #tdquick.open{ visibility:visible; transition:none; }
 #tdquick .qascrim{ position:absolute; inset:0; }
@@ -95,22 +108,18 @@ button.srow{ cursor:pointer; }
 #tdquick.open .qacard{ transform:none; }
 .qainput{ width:100%; box-sizing:border-box; background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:13px 14px; font-size:16px; color:var(--text); font-family:var(--uifont); outline:none; margin-top:10px; }
 .qainput:first-child{ margin-top:0; }
-.qarow2{ display:flex; align-items:flex-start; gap:10px; margin-bottom:2px; }
-.qalab{ font-size:13px; color:var(--muted); flex:0 0 auto; padding-top:8px; }
-.qalistchips{ display:flex; gap:6px; flex-wrap:wrap; }
-.qalistchip{ padding:7px 12px; border-radius:999px; border:none; background:var(--card2); color:var(--text); font-size:13.5px; font-family:var(--uifont); cursor:pointer; }
-.qalistchip.on{ background:var(--text); color:var(--bg); }
 .qarow{ display:flex; align-items:center; gap:10px; margin-top:14px; }
 .qahint{ flex:1; font-size:12.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .qabtns{ display:flex; gap:8px; }
 .qaclose{ padding:10px 16px; border-radius:999px; border:none; background:var(--card2); color:var(--text); font-size:14px; font-family:var(--uifont); cursor:pointer; }
 .qaadd{ padding:10px 20px; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-size:14px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
+.qapost{ margin-top:12px; padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:var(--card2); color:var(--text); font-size:14px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
 /* ---------- toast ---------- */
 #toast{ position:fixed; left:50%; bottom:calc(env(safe-area-inset-bottom, 0px) + 96px); transform:translateX(-50%) translateY(20px); background:var(--text); color:var(--bg); font-size:13.5px; padding:10px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:120; max-width:86vw; text-align:center; }
 #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
-<body>
+<body data-theme="wood-walnut-smoke">
 <div id="veil" aria-hidden="true"></div>
 <div id="verBadge"></div>
 <header class="top">
@@ -119,20 +128,24 @@ button.srow{ cursor:pointer; }
 </header>
 <main>
   <div class="counters" id="counters"></div>
+  <div class="sideswitch" id="sideswitch"></div>
   <div class="tdfolders" id="filters"></div>
   <div id="listwrap"></div>
-  <div class="settingshead">設定</div>
-  <div id="settingsBody"></div>
-  <div id="syncresults"></div>
+  <div id="otherview" hidden>
+    <div class="settingshead">その他</div>
+    <div id="settingsBody"></div>
+    <div id="syncresults"></div>
+  </div>
 </main>
-<button class="tdfab" id="fab" type="button" aria-label="タイトルを追加">+</button>
+<input type="file" id="importFile" accept=".json,application/json">
+<button class="tdfab" id="fab" type="button" aria-label="タイトルを追加">＋ タイトルを追加</button>
 <div id="tdquick" aria-hidden="true">
   <div class="qascrim" id="qascrim"></div>
   <div class="qacard">
-    <div class="qarow2"><span class="qalab">軸</span><div class="qalistchips" id="qaAxes"></div></div>
-    <input id="qanewaxis" class="qainput" placeholder="新しい軸の名前" autocomplete="off" style="display:none">
     <input id="qatitle" class="qainput" placeholder="タイトルを入力" autocomplete="off" enterkeyhint="done">
-    <div class="qarow"><span class="qahint">追加は続けて入力できます</span>
+    <input id="qatitleJa" class="qainput" placeholder="日本語訳" autocomplete="off" enterkeyhint="done" style="display:none">
+    <button class="qapost" id="qapost" type="button" style="display:none">投稿済にする</button>
+    <div class="qarow"><span class="qahint" id="qahint">追加は続けて入力できます</span>
       <div class="qabtns"><button class="qaclose" id="qaclose" type="button">閉じる</button><button class="qaadd" id="qaadd" type="button">追加</button></div>
     </div>
   </div>
@@ -140,20 +153,22 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.0.0';
+var APP_VERSION = '1.0.2';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
-var GOAL_TOTAL = 365;
+var GOALS = { note: 365, gumroad: 30 };
+var sideMode = 'note'; /* note | gumroad — one inventory side on screen */
+var jaShown = {};      /* gumroad rows currently showing titleJa, by item id */
 var SEED = {
  "version": 1,
- "updatedAt": "2026-11-24T00:07:19+09:00",
+ "updatedAt": "2026-11-23T15:07:19.000Z",
  "items": [
   {
    "id": "t001",
    "axis": "土俵・勝負の選び方",
    "title": "勝てない土俵では戦うな。降りることは負けじゃない",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -161,7 +176,7 @@ var SEED = {
    "axis": "土俵・勝負の選び方",
    "title": "頑張っているのに報われない人は、努力の前に「土俵選び」で負けている",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -169,7 +184,7 @@ var SEED = {
    "axis": "土俵・勝負の選び方",
    "title": "向いてない場所で努力するほど、自分が嫌いになる",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -177,7 +192,7 @@ var SEED = {
    "axis": "土俵・勝負の選び方",
    "title": "戦う場所を間違えると、才能は「努力不足」に見える",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -185,7 +200,7 @@ var SEED = {
    "axis": "土俵・勝負の選び方",
    "title": "得意なことより先に、「やらないこと」を決める",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -193,7 +208,7 @@ var SEED = {
    "axis": "差別化・好き",
    "title": "「好き」で選んできた人間が、なぜ結果的に差別化できているのか",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -201,7 +216,7 @@ var SEED = {
    "axis": "差別化・好き",
    "title": "差別化は狙うものじゃない。好きと、やらないことの積み重ねだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -209,7 +224,7 @@ var SEED = {
    "axis": "差別化・好き",
    "title": "みんなと同じ土俵で1位を取るな。比較されない場所に立て",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -217,7 +232,7 @@ var SEED = {
    "axis": "差別化・好き",
    "title": "好きなことを仕事にするな。「好きで選んだ判断」を売れ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -225,7 +240,7 @@ var SEED = {
    "axis": "比較・焦り",
    "title": "周りと比べて焦る夜に。遅れている感覚の正体は、他人の時計で生きていることだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -233,7 +248,7 @@ var SEED = {
    "axis": "比較・焦り",
    "title": "同級生の成功が苦しいのは、自分の軸がまだ言葉になっていないからだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -241,7 +256,7 @@ var SEED = {
    "axis": "比較・焦り",
    "title": "焦りは情報不足じゃなく、判断の軸不足だ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -249,7 +264,7 @@ var SEED = {
    "axis": "比較・焦り",
    "title": "「もう遅い」と思った時に、年齢の計算をやめる理由",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -257,7 +272,7 @@ var SEED = {
    "axis": "お金・生活",
    "title": "お金がない時期に生活レベルを上げない理由。余った金は「積み上がるもの」にだけ使う",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -265,7 +280,7 @@ var SEED = {
    "axis": "お金・生活",
    "title": "安いものを買う人間ほど、実は高くついている",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -273,7 +288,7 @@ var SEED = {
    "axis": "お金・生活",
    "title": "バイト代の使い道で、その人の3年後が決まる",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -281,7 +296,7 @@ var SEED = {
    "axis": "お金・生活",
    "title": "お金の不安は、収入より「何にいくら使ったか分からない」ことから来る",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -289,7 +304,7 @@ var SEED = {
    "axis": "選ぶ・センス・判断",
    "title": "センスとは、好き嫌いを言葉にできる能力のことだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -297,7 +312,7 @@ var SEED = {
    "axis": "選ぶ・センス・判断",
    "title": "選ぶのが疲れるのは、判断の基準を毎回ゼロから作っているからだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -305,7 +320,7 @@ var SEED = {
    "axis": "選ぶ・センス・判断",
    "title": "買って後悔する買い物には、共通する3つのサインがある",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -313,7 +328,7 @@ var SEED = {
    "axis": "選ぶ・センス・判断",
    "title": "「なんとなく良い」が一番危ない。判断は言葉にした時だけ資産になる",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -321,7 +336,7 @@ var SEED = {
    "axis": "実現・続ける",
    "title": "「口だけだった過去」を繰り返さないために、実現の数え方を変えた",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -329,7 +344,7 @@ var SEED = {
    "axis": "実現・続ける",
    "title": "計画は立てるな。在庫を作れ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -337,7 +352,7 @@ var SEED = {
    "axis": "実現・続ける",
    "title": "続かないのは意志が弱いからじゃない。次の1個が決まっていないからだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -345,7 +360,7 @@ var SEED = {
    "axis": "実現・続ける",
    "title": "やる気は当てにするな。仕組みは、やる気のない日のためにある",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -353,7 +368,7 @@ var SEED = {
    "axis": "一人・人の目",
    "title": "一人でやると決めた人間が、最初に捨てるべき3つの期待",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -361,7 +376,7 @@ var SEED = {
    "axis": "一人・人の目",
    "title": "人の目が気になるのは自信がないからじゃない。判断の軸を他人に預けているからだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -369,7 +384,7 @@ var SEED = {
    "axis": "一人・人の目",
    "title": "相談する相手を間違えると、やる前から負ける",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -377,7 +392,7 @@ var SEED = {
    "axis": "一人・人の目",
    "title": "孤独は欠陥じゃない。使い方が決まっていないだけだ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -385,7 +400,7 @@ var SEED = {
    "axis": "自分の値段",
    "title": "自分を安く扱うな。値段は自分の扱い方で決まる",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -393,7 +408,7 @@ var SEED = {
    "axis": "自分の値段",
    "title": "安売りする人間は、技術じゃなく「断る勇気」で負けている",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -401,7 +416,7 @@ var SEED = {
    "axis": "自分の値段",
    "title": "褒められることと、金を払われることは別物だ",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   },
   {
@@ -409,7 +424,7 @@ var SEED = {
    "axis": "自分の値段",
    "title": "無料で配り続ける人の末路。価値をタダにすると、タダの人になる",
    "adopted": false,
-   "updated_at": "2026-11-24T00:07:19+09:00",
+   "updated_at": "2026-11-23T15:07:19.000Z",
    "deleted": false
   }
  ]
@@ -431,12 +446,19 @@ function toast(msg){
 
 /* ---------- data ---------- */
 var DATA = loadCache();
+function normalizeItems(data){
+  if(data && Array.isArray(data.items)) data.items.forEach(function(it){
+    it.side = (it.side === 'gumroad') ? 'gumroad' : 'note';
+    if(it.posted === undefined) it.posted = false;
+  });
+  return data;
+}
 function loadCache(){
   try{
     var c = JSON.parse(localStorage.getItem(LS_CACHE) || 'null');
-    if(c && Array.isArray(c.items)) return c;
+    if(c && Array.isArray(c.items)) return normalizeItems(c);
   }catch(e){}
-  return clone(SEED);
+  return normalizeItems(clone(SEED));
 }
 var SAVE_FAIL = false;
 function saveCache(){
@@ -448,11 +470,6 @@ function itemById(id){
   return null;
 }
 function visibleItems(){ return DATA.items.filter(function(it){ return !it.deleted; }); }
-function axesInOrder(){
-  var seen = {}, out = [];
-  DATA.items.forEach(function(it){ if(!seen[it.axis]){ seen[it.axis] = true; out.push(it.axis); } });
-  return out;
-}
 
 /* ---------- last-landed stamps (honest unsynced count) ---------- */
 var LS_STAMPS = 'notes.knownStamps';
@@ -472,35 +489,71 @@ function dirtyCount(){
 
 /* ---------- rendering ---------- */
 var filterMode = 'all'; /* all | adopted | unadopted */
-var qaAxis = null;      /* quick-add: selected axis ('__new__' = new axis) */
+var viewMode = 'list'; /* list | other — the 4th pill switches screens */
+var qaEditId = null;    /* quick card edit mode: item id being edited (null = add mode) */
+function sideItems(){ return visibleItems().filter(function(it){ return (it.side || 'note') === sideMode; }); }
 function counts(){
-  var vis = visibleItems();
-  var ad = 0;
-  vis.forEach(function(it){ if(it.adopted) ad++; });
-  return { total: vis.length, adopted: ad };
+  var vis = sideItems();
+  var ad = 0, total = 0, posted = 0;
+  vis.forEach(function(it){
+    if(it.posted){ posted++; }
+    else { total++; if(it.adopted) ad++; }
+  });
+  return { total: total, adopted: ad, posted: posted };
 }
 function renderCounters(){
   var c = counts();
-  var rest = Math.max(0, GOAL_TOTAL - c.adopted);
+  var goal = GOALS[sideMode];
+  var rest = Math.max(0, goal - c.adopted);
   $('counters').innerHTML =
     '<span class="big">採用 ' + c.adopted + '本 / 全' + c.total + '本</span>' +
-    '<span class="goal">目標' + GOAL_TOTAL + '本まで<br>残り <b>' + rest + '本</b></span>';
+    '<span class="goal">目標' + goal + '本まで<br>残り <b>' + rest + '本</b></span>';
 }
+function renderSideSwitch(){
+  $('sideswitch').innerHTML = ['note', 'gumroad'].map(function(s){
+    return '<button type="button" class="sidebtn' + (sideMode === s ? ' on' : '') + '" data-side="' + s + '">' + (s === 'note' ? 'note' : 'Gumroad') + '</button>';
+  }).join('');
+}
+function setSide(s){
+  if(s !== 'note' && s !== 'gumroad') return;
+  sideMode = s;
+  renderSideSwitch();
+  if(viewMode === 'list'){ renderCounters(); renderFilters(); renderList(true); }
+}
+$('sideswitch').addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-side]') : null;
+  if(b) setSide(b.getAttribute('data-side'));
+});
 function renderFilters(){
   var c = counts();
   var un = c.total - c.adopted;
   var defs = [
     { k: 'all', label: 'すべて', n: c.total },
     { k: 'adopted', label: '採用のみ', n: c.adopted },
-    { k: 'unadopted', label: '未選択のみ', n: un }
+    { k: 'unadopted', label: '未選択のみ', n: un },
+    { k: 'posted', label: '投稿済み', n: c.posted },
+    { k: 'other', label: 'その他', n: null }
   ];
   $('filters').innerHTML = defs.map(function(d){
-    return '<button type="button" class="tdfpill' + (filterMode === d.k ? ' on' : '') + '" data-filter="' + d.k + '">' + d.label + '<span class="tdcnt">' + d.n + '</span></button>';
+    var on = (d.k === 'other') ? (viewMode === 'other') : (viewMode === 'list' && filterMode === d.k);
+    return '<button type="button" class="tdfpill' + (on ? ' on' : '') + '" data-filter="' + d.k + '">' + d.label + (d.n === null ? '' : '<span class="tdcnt">' + d.n + '</span>') + '</button>';
   }).join('');
+}
+function setView(v){
+  viewMode = v;
+  var other = (v === 'other');
+  $('otherview').hidden = !other;
+  $('listwrap').style.display = other ? 'none' : '';
+  $('counters').style.display = other ? 'none' : '';
+  $('fab').style.display = other ? 'none' : '';
+  renderFilters();
+  if(other) renderSettings();
 }
 function renderList(anim){
   var wrap = $('listwrap');
-  var vis = visibleItems().filter(function(it){
+  var vis = sideItems().filter(function(it){
+    if(filterMode === 'posted') return !!it.posted;
+    if(it.posted) return false;
     if(filterMode === 'adopted') return it.adopted;
     if(filterMode === 'unadopted') return !it.adopted;
     return true;
@@ -509,32 +562,23 @@ function renderList(anim){
     wrap.innerHTML = '<div class="tdnone">表示するタイトルがありません</div>';
     return;
   }
-  var byAxis = {}, order = [];
-  vis.forEach(function(it){
-    if(!byAxis[it.axis]){ byAxis[it.axis] = []; order.push(it.axis); }
-    byAxis[it.axis].push(it);
-  });
-  var allByAxis = {};
-  visibleItems().forEach(function(it){
-    if(!allByAxis[it.axis]) allByAxis[it.axis] = { total: 0, adopted: 0 };
-    allByAxis[it.axis].total++;
-    if(it.adopted) allByAxis[it.axis].adopted++;
-  });
-  wrap.innerHTML = order.map(function(axis){
-    var st = allByAxis[axis] || { total: 0, adopted: 0 };
-    var h = '<div class="axisgroup"><div class="axishead"><span class="an">' + esc(axis) + '</span><span class="ac">採用' + st.adopted + '／全' + st.total + '</span></div>';
-    h += byAxis[axis].map(function(it){
-      return '<div class="tdrow" data-id="' + esc(it.id) + '">' +
-        '<button type="button" class="tdcheck' + (it.adopted ? ' done' : '') + '" aria-label="採用チェック">' + (it.adopted ? '✓' : '') + '</button>' +
-        '<div class="tdmain"><div class="tdtitle">' + esc(it.title) + '</div></div>' +
-        '<button type="button" class="tddel" data-del="' + esc(it.id) + '" aria-label="削除">×</button>' +
-      '</div>';
-    }).join('');
-    return h + '</div>';
+  wrap.innerHTML = vis.map(function(it){
+    var isG = (it.side === 'gumroad');
+    var showJa = isG && !!jaShown[it.id] && !!it.titleJa;
+    var langBtn = (isG && it.titleJa)
+      ? '<button type="button" class="tdlang" data-lang="' + esc(it.id) + '" aria-label="表示言語切替">' + (showJa ? 'EN' : '日本語') + '</button>' : '';
+    return '<div class="tdrow" data-id="' + esc(it.id) + '">' +
+      '<button type="button" class="tdcheck' + (it.adopted ? ' done' : '') + '" aria-label="採用チェック">' + (it.adopted ? '✓' : '') + '</button>' +
+      '<div class="tdmain"><div class="tdtitle">' + esc(showJa ? it.titleJa : it.title) + '</div></div>' +
+      langBtn +
+      '<button type="button" class="tdedit" data-edit="' + esc(it.id) + '" aria-label="編集">✎</button>' +
+      '<button type="button" class="tddel" data-del="' + esc(it.id) + '" aria-label="削除">×</button>' +
+    '</div>';
   }).join('');
   wrap.classList.toggle('anim', !!anim);
 }
 function renderAll(anim){
+  renderSideSwitch();
   renderCounters();
   renderFilters();
   renderList(anim);
@@ -563,12 +607,32 @@ function deleteItem(id){
   touched();
   toast('削除しました');
 }
-function addItem(axis, title){
+function addItem(title, titleJa){
   var id = 't' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36);
-  DATA.items.push({ id: id, axis: axis, title: title, adopted: false, updated_at: nowISO(), deleted: false });
+  var it = { id: id, axis: '', side: sideMode, title: title, adopted: false, posted: false, posted_at: '', updated_at: nowISO(), deleted: false };
+  if(sideMode === 'gumroad') it.titleJa = titleJa || '';
+  DATA.items.push(it);
+  touched();
+}
+function updateItem(id, title, titleJa){
+  var it = itemById(id); if(!it || it.deleted) return;
+  it.title = title;
+  if(it.side === 'gumroad') it.titleJa = titleJa || '';
+  it.updated_at = nowISO();
+  touched();
+}
+function setPosted(id, v){
+  var it = itemById(id); if(!it || it.deleted) return;
+  it.posted = !!v;
+  it.posted_at = v ? nowISO() : '';
+  it.updated_at = nowISO();
   touched();
 }
 $('listwrap').addEventListener('click', function(e){
+  var lg = e.target.closest ? e.target.closest('[data-lang]') : null;
+  if(lg){ e.stopPropagation(); var lid = lg.getAttribute('data-lang'); jaShown[lid] = !jaShown[lid]; renderList(false); return; }
+  var ed = e.target.closest ? e.target.closest('[data-edit]') : null;
+  if(ed){ e.stopPropagation(); openEdit(ed.getAttribute('data-edit')); return; }
   var del = e.target.closest ? e.target.closest('[data-del]') : null;
   if(del){ e.stopPropagation(); deleteItem(del.getAttribute('data-del')); return; }
   var row = e.target.closest ? e.target.closest('.tdrow') : null;
@@ -577,22 +641,38 @@ $('listwrap').addEventListener('click', function(e){
 $('filters').addEventListener('click', function(e){
   var p = e.target.closest ? e.target.closest('[data-filter]') : null;
   if(!p) return;
-  filterMode = p.getAttribute('data-filter');
-  renderFilters();
+  var k = p.getAttribute('data-filter');
+  if(k === 'other'){ setView('other'); return; }
+  filterMode = k;
+  setView('list');
   renderList(true);
 });
 
-/* ---------- quick add (diary todo pattern) ---------- */
-function renderQaAxes(){
-  var axes = axesInOrder();
-  if(!qaAxis || (qaAxis !== '__new__' && axes.indexOf(qaAxis) < 0)) qaAxis = axes.length ? axes[0] : '__new__';
-  $('qaAxes').innerHTML = axes.map(function(a){
-    return '<button type="button" class="qalistchip' + (qaAxis === a ? ' on' : '') + '" data-axis="' + esc(a) + '">' + esc(a) + '</button>';
-  }).join('') + '<button type="button" class="qalistchip' + (qaAxis === '__new__' ? ' on' : '') + '" data-axis="__new__">＋新しい軸</button>';
-  $('qanewaxis').style.display = qaAxis === '__new__' ? '' : 'none';
+/* ---------- quick add / edit (diary todo pattern) ---------- */
+function qaSetupJa(isGumroad, jaValue){
+  $('qatitleJa').value = jaValue || '';
+  $('qatitleJa').style.display = isGumroad ? '' : 'none';
+  $('qatitle').placeholder = isGumroad ? '英語タイトルを入力' : 'タイトルを入力';
 }
 function openQuick(){
-  renderQaAxes();
+  qaEditId = null;
+  $('qaadd').textContent = '追加';
+  $('qahint').textContent = '追加は続けて入力できます';
+  $('qapost').style.display = 'none';
+  qaSetupJa(sideMode === 'gumroad', '');
+  $('tdquick').classList.add('open');
+  $('tdquick').setAttribute('aria-hidden', 'false');
+  setTimeout(function(){ try{ $('qatitle').focus(); }catch(e){} }, 280);
+}
+function openEdit(id){
+  var it = itemById(id); if(!it || it.deleted) return;
+  qaEditId = id;
+  $('qatitle').value = it.title;
+  $('qaadd').textContent = '保存';
+  $('qahint').textContent = 'タイトルを編集できます';
+  qaSetupJa(it.side === 'gumroad', it.titleJa || '');
+  $('qapost').style.display = '';
+  $('qapost').textContent = it.posted ? '未投稿に戻す' : '投稿済にする';
   $('tdquick').classList.add('open');
   $('tdquick').setAttribute('aria-hidden', 'false');
   setTimeout(function(){ try{ $('qatitle').focus(); }catch(e){} }, 280);
@@ -600,33 +680,41 @@ function openQuick(){
 function closeQuick(){
   $('tdquick').classList.remove('open');
   $('tdquick').setAttribute('aria-hidden', 'true');
+  qaEditId = null;
+  $('qaadd').textContent = '追加';
+  $('qahint').textContent = '追加は続けて入力できます';
+  $('qatitle').value = '';
+  $('qatitleJa').value = '';
+  $('qapost').style.display = 'none';
 }
 function quickAdd(){
   var title = $('qatitle').value.trim();
   if(!title){ toast('タイトルを入力してください'); return; }
-  var axis = qaAxis;
-  if(axis === '__new__'){
-    axis = $('qanewaxis').value.trim();
-    if(!axis){ toast('新しい軸の名前を入力してください'); return; }
+  var titleJa = $('qatitleJa').value.trim();
+  if(qaEditId){
+    updateItem(qaEditId, title, titleJa);
+    closeQuick();
+    toast('保存しました');
+    return;
   }
-  addItem(axis, title);
-  qaAxis = axis;
+  addItem(title, titleJa);
   $('qatitle').value = '';
-  if($('qanewaxis')) $('qanewaxis').value = '';
-  renderQaAxes();
+  $('qatitleJa').value = '';
   toast('追加しました');
   try{ $('qatitle').focus(); }catch(e){}
 }
+$('qapost').addEventListener('click', function(){
+  if(!qaEditId) return;
+  var it = itemById(qaEditId); if(!it) return;
+  var v = !it.posted;
+  setPosted(qaEditId, v);
+  closeQuick();
+  toast(v ? '投稿済みにしました' : '未投稿に戻しました');
+});
 $('fab').addEventListener('click', openQuick);
 $('qascrim').addEventListener('click', closeQuick);
 $('qaclose').addEventListener('click', closeQuick);
 $('qaadd').addEventListener('click', quickAdd);
-$('qaAxes').addEventListener('click', function(e){
-  var c = e.target.closest ? e.target.closest('[data-axis]') : null;
-  if(!c) return;
-  qaAxis = c.getAttribute('data-axis');
-  renderQaAxes();
-});
 $('qatitle').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); quickAdd(); } });
 
 /* ---------- fetch with timeout (bizplan pattern) ---------- */
@@ -653,19 +741,25 @@ function sleepMs(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
    pattern); titles.json matches the pattern, so the relay works
    for this app with NO relay-side change. The config lives in
    this app's own key. When it is absent, the zukan app's
-   same-origin config is adopted read-only. The secret is never
-   embedded in this file. */
+   same-origin config is adopted read-only. As the final fallback
+   the shared secret is preset below — embedded at the owner's
+   direction (2026-11-24) so this app never asks him to paste it.
+   A device-level config (or opting out) always wins over it. */
 var LS_RELAY = 'notes.relay';
 var RELAY_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbziV1Wpv7AWSUJJgaKyRzFeBR81Td4CjryGGuq4avt1xAo-e2mbeyS2vBpCuqx4_KI/exec';
+var RELAY_SECRET_DEFAULT = '8f8ac5d2ddba1c1aec78ff95ad0dc81911a51a13b935b1e9';
 function relayCfgInfo(){
   var own = null;
   try{ own = JSON.parse(localStorage.getItem(LS_RELAY) || 'null'); }catch(e){}
   if(own && own.disabled) return null;
-  if(own && own.secret) return { url: own.url || RELAY_URL_DEFAULT, secret: own.secret, adopted: false };
+  /* an own entry whose secret is blank is treated as unset, so a
+     leftover empty config can never shadow the preset below */
+  if(own && own.secret && String(own.secret).trim()) return { url: own.url || RELAY_URL_DEFAULT, secret: own.secret, adopted: false, preset: false };
   try{
     var z = JSON.parse(localStorage.getItem('zukan.relay') || 'null');
-    if(z && z.secret) return { url: z.url || RELAY_URL_DEFAULT, secret: z.secret, adopted: true };
+    if(z && z.secret && String(z.secret).trim()) return { url: z.url || RELAY_URL_DEFAULT, secret: z.secret, adopted: true, preset: false };
   }catch(e){}
+  if(RELAY_SECRET_DEFAULT) return { url: RELAY_URL_DEFAULT, secret: RELAY_SECRET_DEFAULT, adopted: false, preset: true };
   return null;
 }
 function relayCfg(){ var i = relayCfgInfo(); return i ? { url: i.url, secret: i.secret } : null; }
@@ -703,10 +797,11 @@ function relaySave(url, secret){
 function relayForget(){
   var info = relayCfgInfo();
   try{
-    if(info && !info.adopted) localStorage.removeItem(LS_RELAY);
+    if(info && !info.adopted && !info.preset) localStorage.removeItem(LS_RELAY);
     else localStorage.setItem(LS_RELAY, JSON.stringify({ disabled: true }));
   }catch(e){}
   renderSyncStatus();
+  renderSettings();
   toast('この端末では中継を使わない設定にしました');
 }
 async function relaySaveAndTest(){
@@ -722,19 +817,22 @@ async function relaySaveAndTest(){
     if(st) st.textContent = '接続に失敗しました：' + ((e && e.message) || e);
   }
 }
+function relayStateText(rc){
+  if(!rc) return '未設定';
+  if(rc.preset) return '設定済み（初期設定）';
+  if(rc.adopted) return '図鑑と共有中';
+  return '設定済み';
+}
 function relayGroupHTML(){
   var rc = relayCfgInfo();
   var h = '<div class="groupcard">';
-  h += '<div class="srow"><span class="lb">中継（ログインなし同期）</span><span class="val">' + (rc ? (rc.adopted ? '図鑑と共有中' : '設定済み') : '未設定') + '</span></div>';
-  if(rc){
-    h += '<div class="rstat">' + (rc.adopted ? '図鑑アプリで設定した中継を、この端末ではそのまま使っています。Googleログインなしで同期します。' : 'この端末では Google ログインなしで同期します。') + '</div>';
-    h += '<button class="rbtn" onclick="relayForget()">この端末では中継を使わない</button>';
-  } else {
-    h += '<input class="rinput" id="relayUrl" type="text" placeholder="https://script.google.com/macros/s/…" autocomplete="off" value="' + esc(RELAY_URL_DEFAULT) + '">';
-    h += '<input class="rinput" id="relaySecret" type="password" placeholder="シークレット" autocomplete="off">';
-    h += '<button class="rbtn" onclick="relaySaveAndTest()">保存してテスト</button>';
-    h += '<div class="rstat" id="relayStat">中継を設定すると、Google ログインなしで同期できます（図鑑アプリと同じ仕組み）。</div>';
-  }
+  h += '<div class="srow"><span class="lb">中継（ログインなし同期）</span><span class="val" id="relaystatval">' + relayStateText(rc) + '</span></div>';
+  h += '<div class="rstat">' + (rc ? 'この端末では Google ログインなしで同期します。シークレットは最初から設定済みです。' : '中継を設定すると、Google ログインなしで同期できます（図鑑アプリと同じ仕組み）。') + '</div>';
+  h += '<input class="rinput" id="relayUrl" type="text" placeholder="https://script.google.com/macros/s/…" autocomplete="off" value="' + esc(rc ? rc.url : RELAY_URL_DEFAULT) + '">';
+  h += '<input class="rinput" id="relaySecret" type="password" placeholder="シークレット" autocomplete="off" value="' + (rc ? esc(rc.secret) : '') + '">';
+  h += '<button class="rbtn" onclick="relaySaveAndTest()">保存してテスト</button>';
+  if(rc) h += '<button class="rbtn" onclick="relayForget()">この端末では中継を使わない</button>';
+  h += '<div class="rstat" id="relayStat"></div>';
   h += '</div>';
   return h;
 }
@@ -768,14 +866,77 @@ function driveValText(){
   if(syncError) return 'エラー';
   return '接続済み';
 }
+function syncStateText(){
+  if(syncRunning) return '同期中…';
+  if(syncError) return 'エラー（未同期' + pendingCount + '件）';
+  if(!relayReady() && !isConnected()) return '未接続（端末内に保存中）';
+  if(pendingCount > 0) return '未同期の変更' + pendingCount + '件';
+  if(lastSyncAt){
+    var d = new Date(lastSyncAt);
+    return '同期済み（' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + '）';
+  }
+  return '接続OK';
+}
 function renderSettings(){
   var h = '<div class="groupcard">';
   h += '<button type="button" class="srow" onclick="onDriveRow()"><span class="lb">Google Drive</span><span class="val" id="driveval">' + esc(driveValText()) + '</span></button>';
-  h += '<div class="srow"><span class="lb">このアプリについて</span><span class="val">notes v' + APP_VERSION + '</span></div>';
+  h += '<div class="srow"><span class="lb">同期の状態</span><span class="val" id="syncstatval">' + esc(syncStateText()) + '</span></div>';
+  h += '<button class="rbtn" onclick="syncNowFromOther()">今すぐ同期</button>';
   h += '</div>';
   h += relayGroupHTML();
+  h += '<div class="groupcard">';
+  h += '<div class="srow"><span class="lb">データ</span></div>';
+  h += '<button class="rbtn" onclick="exportJSON()">JSONを書き出す</button>';
+  h += '<button class="rbtn" onclick="document.getElementById(\'importFile\').click()">JSONを取り込む</button>';
+  h += '<div class="rstat">取り込みは既存のデータとマージされます（項目ごとに新しい方が勝ちます）。</div>';
+  h += '</div>';
+  h += '<div class="groupcard">';
+  h += '<div class="srow"><span class="lb">このアプリについて</span><span class="val">notes v' + APP_VERSION + '</span></div>';
+  h += '<div class="rstat">note連載と Gumroad 商品のタイトル在庫。タイトルを貯めて、採用チェックで取捨選択します。目標は note ' + GOALS.note + '本／Gumroad ' + GOALS.gumroad + '本。</div>';
+  h += '</div>';
   $('settingsBody').innerHTML = h;
 }
+function syncNowFromOther(){
+  if(syncRunning) return;
+  if(relayReady()){ appSync(true); return; }
+  if(!isConnected() || (syncError && !accessToken)){ connectDrive(); return; }
+  appSync(true);
+}
+/* ---------- data export / import (rides the same merge rules) ---------- */
+function exportDataText(){ return JSON.stringify(DATA, null, 1); }
+function exportJSON(){
+  var blob = new Blob([exportDataText()], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = FILE_NAME;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ try{ URL.revokeObjectURL(a.href); a.remove(); }catch(e){} }, 400);
+  toast('書き出しました');
+}
+function importDataFromText(text){
+  var j = null;
+  try{ j = JSON.parse(text); }catch(e){}
+  var imp = normalizeData(j);
+  if(!imp){ toast('読み取れないJSONでした'); return false; }
+  var m = mergeData(DATA, imp);
+  DATA = m.data;
+  saveCache();
+  pendingCount = dirtyCount();
+  renderAll(false);
+  appSync(false);
+  toast('取り込みました');
+  return true;
+}
+$('importFile').addEventListener('change', function(){
+  var f = this.files && this.files[0];
+  this.value = '';
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){ importDataFromText(String(r.result || '')); };
+  r.onerror = function(){ toast('ファイルを読めませんでした'); };
+  r.readAsText(f);
+});
 function onDriveRow(){
   if(relayReady()){ appSync(true); return; }
   if(isConnected()){ disconnectDrive(); toast('Driveの接続を解除しました'); }
@@ -796,6 +957,8 @@ function renderSyncStatus(){
   if(syncNote && !syncRunning && !syncError) html += ' ・ ' + esc(syncNote);
   $('syncbar').innerHTML = html;
   var dv = $('driveval'); if(dv) dv.textContent = driveValText();
+  var sv = $('syncstatval'); if(sv) sv.textContent = syncStateText();
+  var rv = $('relaystatval'); if(rv) rv.textContent = relayStateText(relayCfgInfo());
   /* never rebuild the settings under the user's fingers while
      they are typing the relay secret */
   var sec = $('relaySecret');
@@ -918,7 +1081,7 @@ function remoteStampGIS(){
 }
 function normalizeData(j){
   if(!j || !Array.isArray(j.items)) return null;
-  return j;
+  return normalizeItems(j);
 }
 function downloadData(){
   return ensureFileId()
@@ -948,6 +1111,15 @@ function uploadData(data){
    contained is kept and counted pending. Deletions made here
    ride as tombstone records (deleted:true) with a fresh
    updated_at, so they win merges on other devices. */
+/* updated_at comparison: instants, not strings — the seed stamps
+   carry +09:00 offsets while runtime stamps are UTC (Z), and a
+   lexicographic compare would rank the older seed stamp above a
+   newer edit, silently reverting it in the merge */
+function tsNewer(a, b){
+  var pa = Date.parse(a || ''), pb = Date.parse(b || '');
+  if(!isNaN(pa) && !isNaN(pb)) return pa > pb;
+  return (a || '') > (b || '');
+}
 function mergeData(local, remote){
   if(!remote) return { data: local, changed: false, pending: local.items.length, dropped: 0 };
   var known = knownIdsLoad();
@@ -961,7 +1133,7 @@ function mergeData(local, remote){
       if(known && known.indexOf(li.id) >= 0){ dropped++; return; }
       mergedItems.push(li); pending++;
     }
-    else if((li.updated_at || '') > (ri.updated_at || '')){ mergedItems.push(li); pending++; }
+    else if(tsNewer(li.updated_at, ri.updated_at)){ mergedItems.push(li); pending++; }
     else mergedItems.push(ri);
   });
   remote.items.forEach(function(ri){ if(!seen[ri.id]) mergedItems.push(ri); });
