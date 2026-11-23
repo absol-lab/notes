@@ -61,7 +61,7 @@ main{ padding:2px 16px 0; max-width:640px; margin:0 auto; }
 .counters .goal{ margin-left:auto; text-align:right; font-size:13px; color:var(--muted); line-height:1.5; }
 .counters .goal b{ color:var(--text); font-size:15px; }
 /* ---------- filter pills (diary todo .tdfpill pattern) ---------- */
-.tdfolders{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; position:fixed; left:0; right:0; bottom:0; z-index:40; background:var(--nav); border-top:1px solid var(--line); padding:10px 12px calc(env(safe-area-inset-bottom, 0px) + 10px); }
+.tdfolders{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; position:fixed; left:10px; right:10px; bottom:calc(env(safe-area-inset-bottom, 0px) + 12px); z-index:40; background:rgba(29,22,15,.68); -webkit-backdrop-filter:blur(16px) saturate(1.3); backdrop-filter:blur(16px) saturate(1.3); border:1px solid var(--line); border-radius:999px; padding:8px 10px; box-shadow:0 8px 28px rgba(0,0,0,.35); }
 main{ padding-bottom:96px; }
 .tdfolders::-webkit-scrollbar{ display:none; }
 .tdfpill{ flex:0 0 auto; padding:8px 15px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:15px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
@@ -162,7 +162,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.0.5';
+var APP_VERSION = '1.0.6';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 30 };
