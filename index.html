@@ -162,7 +162,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.0.6';
+var APP_VERSION = '1.0.7';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 30 };
@@ -728,7 +728,10 @@ $('viewwrap').addEventListener('click', function(e){
   var del = e.target.closest ? e.target.closest('[data-del]') : null;
   if(del){ e.stopPropagation(); deleteItem(del.getAttribute('data-del')); return; }
   var row = e.target.closest ? e.target.closest('.tdrow') : null;
-  if(row) toggleItem(row.getAttribute('data-id'));
+  if(!row) return;
+  var rid = row.getAttribute('data-id');
+  if(e.target.closest && e.target.closest('.tdcheck')){ toggleItem(rid); return; }
+  if(e.target.closest && e.target.closest('.tdmain')){ openEdit(rid); return; }
 });
 $('filters').addEventListener('click', function(e){
   var p = e.target.closest ? e.target.closest('[data-filter]') : null;
