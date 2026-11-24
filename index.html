@@ -112,6 +112,9 @@ button.srow{ cursor:pointer; }
 .jbtn.no{ border:1.5px solid var(--muted); background:transparent; color:var(--muted); }
 .jbtn.yes{ border:1.5px solid var(--text); background:var(--text); color:var(--bg); }
 .judgeskip{ display:block; margin:18px auto 0; background:none; border:none; color:var(--muted); font-size:13px; font-family:var(--uifont); cursor:pointer; text-decoration:underline; }
+.judgecard[data-jedit]{ cursor:pointer; }
+.judgeinline{ width:100%; box-sizing:border-box; font-size:25px; line-height:1.55; font-weight:700; text-align:center; font-family:inherit; color:var(--text); background:var(--card); border:1.5px solid var(--muted); border-radius:12px; padding:8px; resize:none; }
+.judgeinline.sub{ font-size:16px; font-weight:400; color:var(--muted); margin-top:10px; }
 .tdinline{ width:100%; box-sizing:border-box; font-size:16px; line-height:1.35; font-family:inherit; color:var(--text); background:var(--card); border:1.5px solid var(--muted); border-radius:8px; padding:6px 8px; resize:none; }
 .tdinline + .tdinline{ margin-top:6px; }
 #importFile{ display:none; }
@@ -191,7 +194,7 @@ button.srow{ cursor:pointer; }
 document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
 document.addEventListener('gesturechange', function(e){ e.preventDefault(); });
 document.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) e.preventDefault(); }, { passive:false });
-var APP_VERSION = '1.4.9';
+var APP_VERSION = '1.5.0';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -633,12 +636,45 @@ function renderJudge(){
   var sub = gJa ? '<div class="judgeja">' + esc(it.title) + '</div>' : '';
   wrap.innerHTML =
     '<div class="judgeprog">未選択 残り ' + pool.length + ' 本</div>' +
-    '<div class="judgecard"><div class="judgetitle">' + esc(big) + '</div>' + sub + '</div>' +
+    '<div class="judgecard" data-jedit="' + esc(it.id) + '"><div class="judgetitle">' + esc(big) + '</div>' + sub + '</div>' +
     '<div class="judgebtns">' +
       '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
       '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
     '</div>' +
     '<button type="button" class="judgeskip" data-judge="skip" data-jid="' + esc(it.id) + '">スキップ</button>';
+}
+function startJudgeEdit(id){
+  var it = itemById(id); if(!it || it.deleted) return;
+  var card = document.querySelector('.judgecard'); if(!card) return;
+  if(card.querySelector('textarea')) return;
+  var isG = (it.side === 'gumroad');
+  var withJa = isG && !!it.titleJa;
+  card.innerHTML = withJa
+    ? '<textarea class="judgeinline" id="jeJa" rows="2">' + esc(it.titleJa) + '</textarea><textarea class="judgeinline sub" id="jeTitle" rows="2">' + esc(it.title) + '</textarea>'
+    : '<textarea class="judgeinline" id="jeTitle" rows="3">' + esc(it.title) + '</textarea>' + (isG ? '<textarea class="judgeinline sub" id="jeJa" rows="2" placeholder="日本語訳">' + esc(it.titleJa || '') + '</textarea>' : '');
+  var taT = card.querySelector('#jeTitle');
+  var taJ = card.querySelector('#jeJa');
+  var done = false;
+  function commit(){
+    if(done) return; done = true;
+    var t = (taT.value || '').trim();
+    if(!t){ renderList(false); return; }
+    updateItem(id, t, isG ? (taJ ? (taJ.value || '').trim() : undefined) : undefined);
+  }
+  function cancel(){ if(done) return; done = true; renderList(false); }
+  [taT, taJ].forEach(function(ta){
+    if(!ta) return;
+    ta.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); commit(); }
+      else if(e.key === 'Escape'){ e.preventDefault(); cancel(); }
+    });
+    ta.addEventListener('focusout', function(e){
+      var to = e.relatedTarget;
+      if(to && card.contains(to)) return;
+      setTimeout(commit, 0);
+    });
+  });
+  try{ var ft = card.querySelector('.judgeinline'); ft.focus(); ft.setSelectionRange(ft.value.length, ft.value.length); }catch(e){}
 }
 function setJudgeMode(on){
   judgeMode = !!on;
@@ -898,6 +934,8 @@ $('viewwrap').addEventListener('click', function(e){
   if(vt){ e.stopPropagation(); setJudgeMode(vt.getAttribute('data-vt') === 'judge'); return; }
   var jg = e.target.closest ? e.target.closest('[data-judge]') : null;
   if(jg){ e.stopPropagation(); judgeAct(jg.getAttribute('data-judge'), jg.getAttribute('data-jid')); return; }
+  var je = e.target.closest ? e.target.closest('[data-jedit]') : null;
+  if(je){ e.stopPropagation(); startJudgeEdit(je.getAttribute('data-jedit')); return; }
   var row = e.target.closest ? e.target.closest('.tdrow') : null;
   if(!row) return;
   var rid = row.getAttribute('data-id');
