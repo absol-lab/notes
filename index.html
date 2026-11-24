@@ -191,12 +191,12 @@ button.srow{ cursor:pointer; }
 document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
 document.addEventListener('gesturechange', function(e){ e.preventDefault(); });
 document.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) e.preventDefault(); }, { passive:false });
-var APP_VERSION = '1.4.6';
+var APP_VERSION = '1.4.7';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
 var sideMode = 'note'; /* note | gumroad — one inventory side on screen */
-var jaShown = {};      /* gumroad rows currently showing titleJa, by item id */
+var jaHidden = {};     /* gumroad rows flipped back to EN (Japanese is the default big side), by item id */
 var SEED = {
  "version": 1,
  "updatedAt": "2026-11-23T15:07:19.000Z",
@@ -629,10 +629,12 @@ function renderJudge(){
     wrap.innerHTML = '<div class="tdnone">未選択のタイトルは全部判別済みです</div>';
     return;
   }
-  var ja = (it.side === 'gumroad' && it.titleJa) ? '<div class="judgeja">' + esc(it.titleJa) + '</div>' : '';
+  var gJa = (it.side === 'gumroad' && it.titleJa);
+  var big = gJa ? it.titleJa : it.title;
+  var sub = gJa ? '<div class="judgeja">' + esc(it.title) + '</div>' : '';
   wrap.innerHTML =
     '<div class="judgeprog">未選択 残り ' + pool.length + ' 本</div>' +
-    '<div class="judgecard"><div class="judgetitle">' + esc(it.title) + '</div>' + ja + '</div>' +
+    '<div class="judgecard"><div class="judgetitle">' + esc(big) + '</div>' + sub + '</div>' +
     '<div class="judgebtns">' +
       '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
       '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
@@ -669,7 +671,7 @@ function renderList(anim){
   }
   wrap.innerHTML = vis.map(function(it){
     var isG = (it.side === 'gumroad');
-    var showJa = isG && !!jaShown[it.id] && !!it.titleJa;
+    var showJa = isG && !jaHidden[it.id] && !!it.titleJa;
     var langBtn = (isG && it.titleJa)
       ? '<button type="button" class="tdlang" data-lang="' + esc(it.id) + '" aria-label="表示言語切替">' + (showJa ? 'EN' : '日本語') + '</button>' : '';
     return '<div class="tdrow" data-id="' + esc(it.id) + '">' +
@@ -844,9 +846,9 @@ function startInlineEdit(row, id){
   var main = row.querySelector('.tdmain'); if(!main) return;
   if(main.querySelector('.tdinline')) return;
   var isG = (it.side === 'gumroad');
-  main.innerHTML =
-    '<textarea class="tdinline" id="ieTitle" rows="2">' + esc(it.title) + '</textarea>' +
-    (isG ? '<textarea class="tdinline" id="ieJa" rows="2" placeholder="日本語訳">' + esc(it.titleJa || '') + '</textarea>' : '');
+  var taTitleHtml = '<textarea class="tdinline" id="ieTitle" rows="2">' + esc(it.title) + '</textarea>';
+  var taJaHtml = '<textarea class="tdinline" id="ieJa" rows="2" placeholder="日本語訳">' + esc(it.titleJa || '') + '</textarea>';
+  main.innerHTML = isG ? (taJaHtml + taTitleHtml) : taTitleHtml;
   var taT = main.querySelector('#ieTitle');
   var taJ = main.querySelector('#ieJa');
   var done = false;
@@ -869,7 +871,7 @@ function startInlineEdit(row, id){
       setTimeout(commit, 0);
     });
   });
-  try{ taT.focus(); taT.setSelectionRange(taT.value.length, taT.value.length); }catch(e){}
+  try{ var ft = main.querySelector('.tdinline'); ft.focus(); ft.setSelectionRange(ft.value.length, ft.value.length); }catch(e){}
 }
 function setPosted(id, v){
   var it = itemById(id); if(!it || it.deleted) return;
@@ -884,7 +886,7 @@ $('viewwrap').addEventListener('click', function(e){
   var sb = e.target.closest ? e.target.closest('[data-side]') : null;
   if(sb){ setSide(sb.getAttribute('data-side')); return; }
   var lg = e.target.closest ? e.target.closest('[data-lang]') : null;
-  if(lg){ e.stopPropagation(); var lid = lg.getAttribute('data-lang'); jaShown[lid] = !jaShown[lid]; renderList(false); return; }
+  if(lg){ e.stopPropagation(); var lid = lg.getAttribute('data-lang'); jaHidden[lid] = !jaHidden[lid]; renderList(false); return; }
   var ed = e.target.closest ? e.target.closest('[data-edit]') : null;
   if(ed){ e.stopPropagation(); openEdit(ed.getAttribute('data-edit')); return; }
   var del = e.target.closest ? e.target.closest('[data-del]') : null;
