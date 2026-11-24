@@ -99,6 +99,19 @@ button.srow{ cursor:pointer; }
 .tdperm{ flex:0 0 auto; padding:7px 14px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:13px; font-weight:600; font-family:var(--uifont); cursor:pointer; margin-left:8px; }
 .tdperm.armed{ background:#b3402a; border-color:#b3402a; color:#fff; }
 .tdsub{ color:var(--muted); font-size:12px; margin-top:2px; }
+.viewtoggle{ display:flex; gap:8px; padding:12px 2px 0; }
+.viewtoggle:empty{ display:none; }
+.vtbtn{ flex:1; padding:7px 15px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:13px; font-weight:600; font-family:var(--uifont); cursor:pointer; text-align:center; }
+.vtbtn.on{ background:var(--text); color:var(--bg); border-color:var(--text); }
+.judgeprog{ text-align:center; color:var(--muted); font-size:13px; padding:26px 0 0; }
+.judgecard{ padding:26px 10px 8px; text-align:center; }
+.judgetitle{ font-size:25px; line-height:1.55; font-weight:700; }
+.judgeja{ color:var(--muted); font-size:15px; line-height:1.5; margin-top:12px; }
+.judgebtns{ display:flex; gap:12px; padding:30px 2px 0; }
+.jbtn{ flex:1; padding:16px 0; border-radius:999px; font-size:17px; font-weight:700; font-family:var(--uifont); cursor:pointer; }
+.jbtn.no{ border:1.5px solid var(--muted); background:transparent; color:var(--muted); }
+.jbtn.yes{ border:1.5px solid var(--text); background:var(--text); color:var(--bg); }
+.judgeskip{ display:block; margin:18px auto 0; background:none; border:none; color:var(--muted); font-size:13px; font-family:var(--uifont); cursor:pointer; text-decoration:underline; }
 #importFile{ display:none; }
 /* ---------- side switch (note / Gumroad) ---------- */
 .sideswitch{ display:flex; gap:8px; padding:14px 2px 0; }
@@ -142,6 +155,7 @@ button.srow{ cursor:pointer; }
   <div id="viewwrap">
     <div class="counters" id="counters"></div>
     <div class="sideswitch" id="sideswitch"></div>
+    <div class="viewtoggle" id="viewtoggle"></div>
     <div id="listwrap"></div>
     <div id="otherview" hidden>
       <div class="settingshead">その他</div>
@@ -171,7 +185,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.2.0';
+var APP_VERSION = '1.3.0';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -534,6 +548,7 @@ function renderSideSwitch(){
 }
 function setSide(s){
   if(s !== 'note' && s !== 'gumroad') return;
+  judgeSkip = {};
   if(s === sideMode){
     renderSideSwitch();
     if(viewMode === 'list'){ renderCounters(); renderFilters(); renderList(true); }
@@ -578,11 +593,63 @@ function setView(v){
   $('counters').style.display = (other || trash) ? 'none' : '';
   $('fab').style.display = (other || trash) ? 'none' : '';
   renderFilters();
+  renderViewToggle();
   if(other) renderSettings();
   if(trash) renderTrash();
 }
+var judgeMode = true;
+try{ judgeMode = localStorage.getItem('notes_judge') !== 'list'; }catch(e){}
+var judgeSkip = {};
+function judgePool(){ return sideItems().filter(function(it){ return !it.posted && !it.adopted; }); }
+function judgeCurrent(){
+  var pool = judgePool();
+  if(!pool.length) return null;
+  for(var i = 0; i < pool.length; i++){ if(!judgeSkip[pool[i].id]) return pool[i]; }
+  judgeSkip = {};
+  return pool[0];
+}
+function renderViewToggle(){
+  var el = $('viewtoggle'); if(!el) return;
+  if(viewMode !== 'list' || filterMode !== 'unadopted'){ el.innerHTML = ''; return; }
+  el.innerHTML =
+    '<button type="button" class="vtbtn' + (judgeMode ? ' on' : '') + '" data-vt="judge">判別</button>' +
+    '<button type="button" class="vtbtn' + (!judgeMode ? ' on' : '') + '" data-vt="list">一覧</button>';
+}
+function renderJudge(){
+  var wrap = $('listwrap');
+  var pool = judgePool();
+  var it = judgeCurrent();
+  if(!it){
+    wrap.innerHTML = '<div class="tdnone">未選択のタイトルは全部判別済みです</div>';
+    return;
+  }
+  var ja = (it.side === 'gumroad' && it.titleJa) ? '<div class="judgeja">' + esc(it.titleJa) + '</div>' : '';
+  wrap.innerHTML =
+    '<div class="judgeprog">未選択 残り ' + pool.length + ' 本</div>' +
+    '<div class="judgecard"><div class="judgetitle">' + esc(it.title) + '</div>' + ja + '</div>' +
+    '<div class="judgebtns">' +
+      '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
+      '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
+    '</div>' +
+    '<button type="button" class="judgeskip" data-judge="skip" data-jid="' + esc(it.id) + '">スキップ</button>';
+}
+function setJudgeMode(on){
+  judgeMode = !!on;
+  try{ localStorage.setItem('notes_judge', judgeMode ? 'judge' : 'list'); }catch(e){}
+  renderList(true);
+}
+function judgeAct(kind, id){
+  var it = itemById(id); if(!it || it.deleted) return;
+  if(kind === 'skip'){ judgeSkip[id] = true; renderList(false); return; }
+  if(kind === 'yes') it.adopted = true;
+  if(kind === 'no') it.deleted = true;
+  it.updated_at = nowISO();
+  touched();
+}
 function renderList(anim){
   var wrap = $('listwrap');
+  renderViewToggle();
+  if(filterMode === 'unadopted' && judgeMode){ renderJudge(); wrap.classList.toggle('anim', !!anim); return; }
   var vis = sideItems().filter(function(it){
     if(filterMode === 'posted') return !!it.posted;
     if(it.posted) return false;
@@ -788,6 +855,10 @@ $('viewwrap').addEventListener('click', function(e){
   if(rs){ e.stopPropagation(); restoreItem(rs.getAttribute('data-restore')); return; }
   var pm = e.target.closest ? e.target.closest('[data-perm]') : null;
   if(pm){ e.stopPropagation(); var pid = pm.getAttribute('data-perm'); if(permArmedId === pid) permDeleteItem(pid); else armPerm(pid); return; }
+  var vt = e.target.closest ? e.target.closest('[data-vt]') : null;
+  if(vt){ e.stopPropagation(); setJudgeMode(vt.getAttribute('data-vt') === 'judge'); return; }
+  var jg = e.target.closest ? e.target.closest('[data-judge]') : null;
+  if(jg){ e.stopPropagation(); judgeAct(jg.getAttribute('data-judge'), jg.getAttribute('data-jid')); return; }
   var row = e.target.closest ? e.target.closest('.tdrow') : null;
   if(!row) return;
   var rid = row.getAttribute('data-id');
@@ -809,9 +880,10 @@ $('filters').addEventListener('click', function(e){
     return;
   }
   if(viewMode !== 'list'){
-    slideTo('pop', function(){ filterMode = k; setView('list'); renderList(false); });
+    slideTo('pop', function(){ judgeSkip = {}; filterMode = k; setView('list'); renderList(false); });
     return;
   }
+  judgeSkip = {};
   filterMode = k;
   setView('list');
   renderList(true);
