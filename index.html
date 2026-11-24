@@ -191,7 +191,7 @@ button.srow{ cursor:pointer; }
 document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
 document.addEventListener('gesturechange', function(e){ e.preventDefault(); });
 document.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) e.preventDefault(); }, { passive:false });
-var APP_VERSION = '1.4.7';
+var APP_VERSION = '1.4.8';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -636,8 +636,8 @@ function renderJudge(){
     '<div class="judgeprog">未選択 残り ' + pool.length + ' 本</div>' +
     '<div class="judgecard"><div class="judgetitle">' + esc(big) + '</div>' + sub + '</div>' +
     '<div class="judgebtns">' +
-      '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
       '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
+      '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
     '</div>' +
     '<button type="button" class="judgeskip" data-judge="skip" data-jid="' + esc(it.id) + '">スキップ</button>';
 }
