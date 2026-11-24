@@ -112,6 +112,8 @@ button.srow{ cursor:pointer; }
 .jbtn.no{ border:1.5px solid var(--muted); background:transparent; color:var(--muted); }
 .jbtn.yes{ border:1.5px solid var(--text); background:var(--text); color:var(--bg); }
 .judgeskip{ display:block; margin:18px auto 0; background:none; border:none; color:var(--muted); font-size:13px; font-family:var(--uifont); cursor:pointer; text-decoration:underline; }
+.tdinline{ width:100%; box-sizing:border-box; font-size:12.75px; line-height:1.3; font-family:inherit; color:var(--text); background:var(--card); border:1.5px solid var(--muted); border-radius:8px; padding:6px 8px; resize:none; }
+.tdinline + .tdinline{ margin-top:6px; }
 #importFile{ display:none; }
 /* ---------- side switch (note / Gumroad) ---------- */
 .sideswitch{ display:flex; gap:8px; padding:14px 2px 0; }
@@ -185,7 +187,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.3.0';
+var APP_VERSION = '1.4.0';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -833,6 +835,38 @@ function updateItem(id, title, titleJa){
   it.updated_at = nowISO();
   touched();
 }
+function startInlineEdit(row, id){
+  var it = itemById(id); if(!it || it.deleted) return;
+  var main = row.querySelector('.tdmain'); if(!main) return;
+  if(main.querySelector('.tdinline')) return;
+  var isG = (it.side === 'gumroad');
+  main.innerHTML =
+    '<textarea class="tdinline" id="ieTitle" rows="2">' + esc(it.title) + '</textarea>' +
+    (isG ? '<textarea class="tdinline" id="ieJa" rows="2" placeholder="日本語訳">' + esc(it.titleJa || '') + '</textarea>' : '');
+  var taT = main.querySelector('#ieTitle');
+  var taJ = main.querySelector('#ieJa');
+  var done = false;
+  function commit(){
+    if(done) return; done = true;
+    var t = (taT.value || '').trim();
+    if(!t){ renderList(false); return; }
+    updateItem(id, t, isG ? (taJ.value || '').trim() : undefined);
+  }
+  function cancel(){ if(done) return; done = true; renderList(false); }
+  [taT, taJ].forEach(function(ta){
+    if(!ta) return;
+    ta.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); commit(); }
+      else if(e.key === 'Escape'){ e.preventDefault(); cancel(); }
+    });
+    ta.addEventListener('focusout', function(e){
+      var to = e.relatedTarget;
+      if(to && main.contains(to)) return;
+      setTimeout(commit, 0);
+    });
+  });
+  try{ taT.focus(); taT.setSelectionRange(taT.value.length, taT.value.length); }catch(e){}
+}
 function setPosted(id, v){
   var it = itemById(id); if(!it || it.deleted) return;
   it.posted = !!v;
@@ -863,7 +897,7 @@ $('viewwrap').addEventListener('click', function(e){
   if(!row) return;
   var rid = row.getAttribute('data-id');
   if(e.target.closest && e.target.closest('.tdcheck')){ toggleItem(rid); return; }
-  if(e.target.closest && e.target.closest('.tdmain')){ openEdit(rid); return; }
+  if(e.target.closest && e.target.closest('.tdmain')){ startInlineEdit(row, rid); return; }
 });
 $('filters').addEventListener('click', function(e){
   var p = e.target.closest ? e.target.closest('[data-filter]') : null;
