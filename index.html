@@ -187,7 +187,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.4.0';
+var APP_VERSION = '1.4.2';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -522,7 +522,7 @@ function dirtyCount(){
 }
 
 /* ---------- rendering ---------- */
-var filterMode = 'all'; /* all | adopted | unadopted */
+var filterMode = 'unadopted'; /* all | adopted | unadopted | posted — launch lands on 未選択 (judge page) */
 var viewMode = 'list'; /* list | other — the 4th pill switches screens */
 var qaEditId = null;    /* quick card edit mode: item id being edited (null = add mode) */
 function sideItems(){ return visibleItems().filter(function(it){ return (it.side || 'note') === sideMode; }); }
@@ -630,8 +630,8 @@ function renderJudge(){
     '<div class="judgeprog">未選択 残り ' + pool.length + ' 本</div>' +
     '<div class="judgecard"><div class="judgetitle">' + esc(it.title) + '</div>' + ja + '</div>' +
     '<div class="judgebtns">' +
-      '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
       '<button type="button" class="jbtn yes" data-judge="yes" data-jid="' + esc(it.id) + '">採用</button>' +
+      '<button type="button" class="jbtn no" data-judge="no" data-jid="' + esc(it.id) + '">不採用</button>' +
     '</div>' +
     '<button type="button" class="judgeskip" data-judge="skip" data-jid="' + esc(it.id) + '">スキップ</button>';
 }
