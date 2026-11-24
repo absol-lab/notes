@@ -191,7 +191,7 @@ button.srow{ cursor:pointer; }
 document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
 document.addEventListener('gesturechange', function(e){ e.preventDefault(); });
 document.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) e.preventDefault(); }, { passive:false });
-var APP_VERSION = '1.4.8';
+var APP_VERSION = '1.4.9';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -578,7 +578,6 @@ function renderFilters(){
   var defs = [
     { k: 'unadopted', label: '未選択のみ', n: un },
     { k: 'adopted', label: '採用のみ', n: c.adopted },
-    { k: 'all', label: 'すべて', n: c.total },
     { k: 'posted', label: '投稿済み', n: c.posted },
     { k: 'trash', label: 'ゴミ箱', n: tc },
     { k: 'other', label: 'その他', n: null }
