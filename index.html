@@ -96,6 +96,8 @@ button.srow{ cursor:pointer; }
 #otherview[hidden]{ display:none !important; }
 #trashview[hidden]{ display:none !important; }
 .tdrestore{ flex:0 0 auto; padding:7px 14px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--text); font-size:13px; font-weight:600; font-family:var(--uifont); cursor:pointer; }
+.tdperm{ flex:0 0 auto; padding:7px 14px; border-radius:999px; border:1.5px solid var(--muted); background:transparent; color:var(--muted); font-size:13px; font-weight:600; font-family:var(--uifont); cursor:pointer; margin-left:8px; }
+.tdperm.armed{ background:#b3402a; border-color:#b3402a; color:#fff; }
 .tdsub{ color:var(--muted); font-size:12px; margin-top:2px; }
 #importFile{ display:none; }
 /* ---------- side switch (note / Gumroad) ---------- */
@@ -169,7 +171,7 @@ button.srow{ cursor:pointer; }
 <div id="toast"></div>
 <script>
 'use strict';
-var APP_VERSION = '1.1.0';
+var APP_VERSION = '1.2.0';
 var CLIENT_ID = '386087008053-de53ufnkvcnbjslkuhmq2l2pm9fj4c2t.apps.googleusercontent.com';
 var FILE_NAME = 'titles.json';
 var GOALS = { note: 365, gumroad: 365 };
@@ -551,7 +553,7 @@ function setSide(s){
 function renderFilters(){
   var c = counts();
   var un = c.total - c.adopted;
-  var tc = DATA.items.filter(function(it){ return it.deleted && (it.side || 'note') === sideMode; }).length;
+  var tc = DATA.items.filter(function(it){ return it.deleted && !it.purged && (it.side || 'note') === sideMode; }).length;
   var defs = [
     { k: 'unadopted', label: '未選択のみ', n: un },
     { k: 'adopted', label: '採用のみ', n: c.adopted },
@@ -708,7 +710,8 @@ function deleteItem(id){
   touched();
   toast('削除しました');
 }
-function trashItems(){ return DATA.items.filter(function(it){ return it.deleted && (it.side || 'note') === sideMode; }); }
+function trashItems(){ return DATA.items.filter(function(it){ return it.deleted && !it.purged && (it.side || 'note') === sideMode; }); }
+var permArmedId = null, permArmTimer = null;
 function renderTrash(){
   var items = trashItems();
   if(!items.length){
@@ -717,11 +720,30 @@ function renderTrash(){
   }
   $('trashBody').innerHTML = items.map(function(it){
     var sub = (it.side === 'gumroad' && it.titleJa) ? '<div class="tdsub">' + esc(it.titleJa) + '</div>' : '';
+    var armed = (permArmedId === it.id);
     return '<div class="tdrow" data-id="' + esc(it.id) + '">' +
       '<div class="tdmain"><div class="tdtitle">' + esc(it.title) + '</div>' + sub + '</div>' +
       '<button type="button" class="tdrestore" data-restore="' + esc(it.id) + '">復元</button>' +
+      '<button type="button" class="tdperm' + (armed ? ' armed' : '') + '" data-perm="' + esc(it.id) + '">' + (armed ? '本当に消す' : '完全消去') + '</button>' +
     '</div>';
   }).join('');
+}
+function armPerm(id){
+  permArmedId = id;
+  if(permArmTimer) clearTimeout(permArmTimer);
+  permArmTimer = setTimeout(function(){ permArmedId = null; if(viewMode === 'trash') renderTrash(); }, 2600);
+  renderTrash();
+}
+function permDeleteItem(id){
+  var it = itemById(id); if(!it || !it.deleted || it.purged) return;
+  it.title = '';
+  if('titleJa' in it) it.titleJa = '';
+  it.purged = true;
+  it.updated_at = nowISO();
+  permArmedId = null;
+  if(permArmTimer) clearTimeout(permArmTimer);
+  touched();
+  toast('完全に消去しました');
 }
 function restoreItem(id){
   var it = itemById(id); if(!it || !it.deleted) return;
@@ -764,6 +786,8 @@ $('viewwrap').addEventListener('click', function(e){
   if(del){ e.stopPropagation(); deleteItem(del.getAttribute('data-del')); return; }
   var rs = e.target.closest ? e.target.closest('[data-restore]') : null;
   if(rs){ e.stopPropagation(); restoreItem(rs.getAttribute('data-restore')); return; }
+  var pm = e.target.closest ? e.target.closest('[data-perm]') : null;
+  if(pm){ e.stopPropagation(); var pid = pm.getAttribute('data-perm'); if(permArmedId === pid) permDeleteItem(pid); else armPerm(pid); return; }
   var row = e.target.closest ? e.target.closest('.tdrow') : null;
   if(!row) return;
   var rid = row.getAttribute('data-id');
